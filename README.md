@@ -1,14 +1,12 @@
 
-This code uses an express server and nrgrok in order to capture and record webhook events from a Sunshine Conversations Webhook integration.
+This script uses an express server and nrgrok in order to capture and record webhook events from a Sunshine Conversations Webhook integration.
 
 REQUIREMENTS
-NodeJS and npm 
+1. NodeJS and npm 
     (these are bundled together and can be installed by following the instructions here: https://nodejs.org/en/ - you will most likely want to select the LTS version)
-
-ngrok
+2. ngrok
     (follow these instructions to install, sign up for an account, and authenticate ngrok on your computer: https://ngrok.com/download)
-
-An ngrok domain 
+3. An ngrok domain 
     (this is necessary if you want a static webhook target, if you do not have one or are not sure what your ngrok domain is, let me (Ulysses) know and I'll generate a new one) 
     (this program is still usable without an ngrok domain - the difference being that you will need to run the program, grab the 'webnhook target' listed in the terminal, and then manually update your webhook target in your Webhook integration each time you run the program)
 
