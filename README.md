@@ -1,4 +1,3 @@
-
 This script uses an express server and nrgrok in order to capture and record webhook events from a Sunshine Conversations Webhook integration.
 
 REQUIREMENTS

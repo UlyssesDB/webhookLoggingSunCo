@@ -1,4 +1,3 @@
-
 const express = require("express");
 const Smooch = require("smooch-core");
 const bodyParser = require("body-parser");
