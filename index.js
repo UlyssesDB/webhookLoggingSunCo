@@ -7,33 +7,41 @@ const config = require("./config.json");
 
 const app = express();
 const smooch = new Smooch({
-    keyId: config.keyId,
-    secret: config.secret,
-    scope: "app",
+  keyId: config.keyId,
+  secret: config.secret,
+  scope: "app",
 });
 
 app.use(bodyParser.json());
 
 app.post("/messages", async (req, res) => {
+  try {
     const text = JSON.stringify(req.body, null, 4);
     console.log("WEBHOOK EVENT: " + text);
-    res.sendStatus(200);
     fs.appendFileSync("logs.json", text + "\n");
-    res.end();
+    res.sendStatus(200);
+  } catch (err) {
+    console.error("Error handling /messages request:", err);
+    res.sendStatus(500);
+  }
 });
 
-app.get("/", function (req, res) {
-	res.sendStatus(200);
+app.get("/", (req, res) => {
+  res.sendStatus(200);
 });
 
-app.listen(process.env.port || config.port, function () {
-    console.log(
-        "listening on: " + (process.env.port || "localhost " + config.port)
-    );
+const port = process.env.PORT || config.port;
+
+app.listen(port, () => {
+  console.log(`listening on: ${port}`);
+  expose(port).catch((err) => console.error("Unhandled error in expose:", err));
 });
 
 async function expose(port) {
+  try {
     const url = await ngrok.connect({ addr: port, subdomain: config.domain });
-    console.log('webhook target: ' + url + "/messages");
+    console.log(`webhook target: ${url}/messages`);
+  } catch (err) {
+    console.error("Error setting up ngrok:", err);
+  }
 }
-expose(config.port);
